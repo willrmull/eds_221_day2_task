@@ -1,0 +1,65 @@
+---
+title: "r_csv_data"
+format: html
+editor: visual
+--- 
+
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                 Day 2 Task                               ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+```{r}
+knitr::opts_chunk$set(message = FALSE
+                      , warning = FALSE)
+
+library(tidyverse)
+library(here)
+library(janitor)
+
+mack_verts <- read_csv(here::here("data", "AS00601.csv"))
+
+#convert columns to lower snake case
+mack_verts <- mack_verts %>% clean_names()
+
+mc_wt_5 <-  mack_verts$weight[5]
+mc_length_8_20 <- mack_verts$length1[8:20]
+mc_dates <- mack_verts$sampledate
+
+#subset for the species Dicamptodon tenebrosus,
+mc_salamanders <- mack_verts %>% filter(species == c("DITE"))
+
+# Scaterplot of lizard weight and length
+salamander_size <- ggplot(data = mc_salamanders, aes(x = length1, y  =weight)) +
+  geom_point(size = 0.9, colour = "orange") +
+  labs(title = "Dicamptodon Tenebrosus Length & Weight",
+       x = "Length (mm)",
+       y = "Weight (grams)", 
+       subtitle = "The data shows that there is positive correlation between length and weight in Dicamptodon tenebrosus",
+    caption = "Data collected in the Mack Creek and HJ Andrews Experimental Forest from 1993 to 2020")
+
+#View the plot
+salamander_size
+
+ggsave(ggsave(here::here("figs", "salamander_size.png"), height = 5, width = 6))
+
+mc_trout <- mack_verts %>% filter(species == c("ONCL"))
+
+# Scaterplot of trout weight and length
+cutthroat_size <- ggplot(data = mc_trout, aes(x = length1, y  =weight, color = sitecode)) +
+  geom_point(size = 0.9) +
+  scale_color_manual(values = c("MACKCC-L" = "#FF0000", "mackog-l" = "yellow", "MACKCC-M" = "#0000FF", "mackog-m" = "purple", "MACKCC-U" ="#00FF00", "mackog-u" = "black")) +
+  facet_wrap(~reach) +
+  labs(title = "Cutthroat Trout Length & Weight",
+       x = "Length (mm)",
+       y = "Weight (grams)", 
+       subtitle = "The data shows that there is positive correlation between length and weight in cutthroat trout",
+    caption = "Data collected in the Mack Creek and HJ Andrews Experimental Forest from 1987 to 2020")
+# View plot
+cutthroat_size
+
+#Save plot
+ggsave(ggsave(here::here("figs", "cutthroat_size.png"), height = 5, width = 6))
+```
+
