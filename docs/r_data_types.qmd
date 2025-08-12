@@ -1,0 +1,64 @@
+---
+title: "r_data_types"
+format: html
+editor: visual
+---
+
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##                                 Day 2 Task                               ----
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+```{r}
+vec_1 <- c(2, 5, 9, 10, 8, 12, 1, 0)
+
+#Check the class
+class(vec_1)
+
+#Check the type
+typeof(vec_1)
+
+#Store the third element
+vec_1_e3 <- vec_1[3]
+vec_1_e3
+
+#Store the first element
+vec_1_e1 <- vec_1[1]
+vec_1_e1
+
+#Store elements 5-7
+vec_1_e5to7 <- vec_1[5:7]
+vec_1_e5to7
+
+#Store vector as char
+vec_1_char <- as.character(vec_1)
+vec_1_char
+```
+
+```{r}
+#Creating new vector
+vec_2 <- list(town = c("Santa Barbara"),
+          location = c("Rincon"),
+          swell = c("south"))
+vec_2
+
+class(vec_2)
+length(vec_2)
+
+#Store the second element
+vec_2_e2 <- vec_2[2]
+
+#creating a dataframe
+df_1 <- data.frame(region = c("A", "B", "A", "B"),
+                   species = c("otter", "great white", "sea lion", "grey whale"),
+                   count = c(12, 2, 36, 6))
+df_1
+class(df_1)
+class(df_1$species)
+
+#Find max value in count column
+max_count <- max(df_1$count)
+max_count
+```
+
+
